@@ -46,9 +46,10 @@ def getUsers(type):
         return result
 #fn to validate the user using given userid pass and usertype
 def validateUser(username,password,userType):
-    users = [i[0] for i in getUsers(userType)]
-    if username not in users:
-        return False
+    if userType != "ADMIN":
+        users = [i[0] for i in getUsers(userType)]
+        if username not in users:
+            return False
     if userType == "EMPLOYEE":
         query = "SELECT * FROM employee WHERE empID = %s"
         data = (username,)
@@ -64,6 +65,11 @@ def validateUser(username,password,userType):
         mycursor.execute(query,data)
         result = mycursor.fetchall()
         if result[0][3] == password:
+            return True
+        else:
+            return False
+    elif userType == "ADMIN":
+        if username == "admin" and password == "password":
             return True
         else:
             return False
@@ -116,6 +122,16 @@ def getAcceptedEmployeesofJob(jid):
     mycursor.execute(query,data)
     result = mycursor.fetchall()
     return result
+def getcountofeachemployeeskills():
+    query = "SELECT skill,count(skill) FROM empskills GROUP BY skill"
+    mycursor.execute(query)
+    result = mycursor.fetchall()
+    return result
+def getcountofeachjobskills():
+    query = "SELECT skill,count(skill) FROM jobskills GROUP BY skill"
+    mycursor.execute(query)
+    result = mycursor.fetchall()
+    return result
 
 
 
@@ -127,6 +143,8 @@ def login():
             return render_template('employeeHome.html',msg="Welcome, "+session['username']+"!",data = EmployeeCompatableJobs(session['username']),skills = getSkillsofJobs(EmployeeCompatableJobs(session['username'])))
         elif session['userType'] == "EMPLOYER":
             return render_template('employerHome.html',msg="Welcome, "+session['username']+"!",data = getJobsofEmployer(session['username']),skills = getJobskillsofEmployer(session['username']) )
+        elif session['userType'] == "ADMIN":
+            return render_template('admin.html',msg="Welcome, "+session['username']+"!",employeeSkills = getcountofeachemployeeskills(),jobSkills = getcountofeachjobskills())
         return f'Welcome, {session["username"]}!'
     if request.method == 'POST':
         data = request.get_json()
@@ -141,13 +159,11 @@ def login():
             elif session['userType'] == "EMPLOYER":
                 return render_template('employerHome.html',msg="Welcome, "+session['username']+"!",data = getJobsofEmployer(session['username']),skills = getJobskillsofEmployer(session['username']) )
             elif session['userType'] == "ADMIN":
-                return render_template('adminHome.html',msg="Welcome, "+session['username']+"!")
+                return render_template('admin.html',msg="Welcome, "+session['username']+"!",employeeSkills = getcountofeachemployeeskills(),jobSkills = getcountofeachjobskills())
 
             return f'Welcome, {session["username"]}!'
         else:
             return "Invalid username or password"
-        
-        
         #     return f'Welcome, {session["username"]}!'
         # else:
         #     return 'Invalid username or password'
@@ -202,6 +218,8 @@ def home():
             return render_template('employeeHome.html',msg="Welcome, "+session['username']+"!",data = EmployeeCompatableJobs(session['username']),skills = getSkillsofJobs(EmployeeCompatableJobs(session['username'])))
         elif session['userType'] == "EMPLOYER":
             return render_template('employerHome.html',msg="Welcome, "+session['username']+"!",data = getJobsofEmployer(session['username']),skills = getJobskillsofEmployer(session['username']) )
+        elif session['userType'] == "ADMIN":
+            return render_template('adminHome.html',msg="Welcome, "+session['username']+"!",employeeSkills = getcountofeachemployeeskills(),jobSkills = getcountofeachjobskills())
         return f'Welcome, {session["username"]}!'
     return render_template('login.html')
 
