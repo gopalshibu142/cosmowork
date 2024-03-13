@@ -26,9 +26,52 @@
             height: 400px;
             margin: 20px auto;
         }
+        
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+    padding: 10px;
+    color: #fff;
+}
+
+.navbar-logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.navbar-links {
+    display: flex;
+    gap: 10px;
+}
+
+.navbar-link {
+    text-decoration: none;
+    color: #fff;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.navbar-link:hover {
+    background-color: #666;
+}
+
     </style>
 </head>
 <body>
+    <div class="navbar">
+        <div class="navbar-logo">Cosmowork</div>
+        <div class="navbar-links">
+            <a href="#" class="navbar-link">Jobs</a>
+            <a href="/profile" class="navbar-link">Profile</a>
+            <form action="/logout" method="post">
+                <button class="navbar-link logout-button">Logout</button>
+            </form>
+        </div>
+    </div>
     <div class="container">
         <h1>Admin Page</h1>
         <h2>Employee Skills</h2>

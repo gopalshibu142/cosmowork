@@ -1,0 +1,134 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+    padding: 10px;
+    color: #fff;
+}
+
+.navbar-logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.navbar-links {
+    display: flex;
+    gap: 10px;
+}
+
+.navbar-link {
+    text-decoration: none;
+    color: #fff;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.navbar-link:hover {
+    background-color: #666;
+}
+
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 800px;
+}
+
+.card {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    width: 200px;
+    height: 200px;
+    transition: box-shadow 0.6s ease-in-out;
+    background-color: #f2f2f2;
+}
+
+.card:hover {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    background-color: #fff;
+}
+
+.card-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+.card-details {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #666;
+}
+
+.card-description {
+    margin-top: 10px;
+    color: #666;
+}
+
+.skill-required {
+    display: inline-block;
+    background-color: #ccc;
+    border-radius: 10px;
+    padding: 5px 10px;
+    margin-top: 5px;
+    color: #fff;
+}
+
+.logout-button {
+    background-color: #666;
+    border-radius: 5px;
+    padding: 5px 10px;
+    color: #fff;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.logout-button:hover {
+    background-color: #333;
+}
+
+button {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #666;
+    color: white;
+}
+
+h3 {
+    text-align: center;
+}
+
+.center-button {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.viewjob {
+    margin-top: 20px;
+}

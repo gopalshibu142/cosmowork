@@ -225,7 +225,7 @@ def home():
 
 
 #logout
-@app.route('/logout',methods=['POST'])
+@app.route('/logout',methods=['POST','GET'])
 def logout():
     session.pop('username', None)
     return redirect(url_for('login'))
