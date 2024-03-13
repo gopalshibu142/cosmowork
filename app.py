@@ -110,6 +110,12 @@ def getEmployeeDetails(username):
     mycursor.execute(query,data)
     result = mycursor.fetchall()
     return result
+def getAcceptedEmployeesofJob(jid):
+    query = "SELECT * FROM employee WHERE empID IN (SELECT empID FROM jobapplied WHERE jid = %s)"
+    data = (jid,)
+    mycursor.execute(query,data)
+    result = mycursor.fetchall()
+    return result
 
 
 
@@ -259,7 +265,19 @@ def applyforjob():
             data = (jid,session['username'])
             mycursor.execute(query,data)
             mydb.commit()
-            return "Applied for job successfully"
+            redirect('/')
+        else:
+            return "You are not authorized to access this page"
+    else:
+        return redirect('/login')
+
+@app.route('/appliedemployees/<jid>',methods=['GET','POST'])
+def appliedemployees(jid):
+    if 'username' in session:
+        if session['userType'] == 'EMPLOYER':
+            employees = getAcceptedEmployeesofJob(jid)
+            return render_template('appliedemployees.html',employees = employees)
+            
         else:
             return "You are not authorized to access this page"
     else:
