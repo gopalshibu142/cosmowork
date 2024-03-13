@@ -26,121 +26,215 @@
       }
     </script>
     <style>
-        /* Reset default styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
- 
-        /* Body styles */
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f9f9f9;
-           
-            align-items: center;
-            height: 100vh;
-        }
-        nav {
             display: flex;
             justify-content: center;
-            gap: 1rem;
-            margin-top: 1rem;
+            align-items: center;
+            height: 100vh;
+            background-color: #dbe7ec;
         }
-        nav a {
-            text-decoration: none;
-            color: #333;
-            font-weight: bold;
+
+        .container {
+            display: flex;
+            justify-content: center; /* Center align horizontally */
+            align-items: flex-start; /* Align to the top */
+            width: 100%;
+            height: 100vh;
         }
-        /* Login container */
-        .login-container {
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+        .left-half {
+            flex: 1;
             padding: 20px;
-            width: 300px;
+            background-color: #fff;
+            height: 100%; /* Updated height */
         }
- 
-        /* Header styles */
-        .login-header {
-            text-align: center;
+
+        .right-half {
+            flex: 1;
+            background-color: #c0dfff;
+        }
+
+        .form-group {
             margin-bottom: 20px;
-        }
- 
-        /* Form styles */
-        .login-form {
             display: flex;
             flex-direction: column;
+            align-items: center; /* Center align vertically */
+            margin-top: 50px; /* Added margin-top */
         }
- 
-        .form-group {
-            margin-bottom: 15px;
-        }
- 
-        .form-label {
+
+        .form-group label {
+            display: block;
             font-weight: bold;
+            margin-bottom: 5px;
+            text-align: left; /* Updated property */
         }
- 
-        .form-input {
-            padding: 8px;
+
+        .form-group input {
+            width: 60%; /* Updated width */
+            padding: 10px;
             border: 1px solid #ccc;
             border-radius: 4px;
         }
- 
-        .form-button {
+
+        .form-group button {
+            width: 60%; /* Updated width */
+            padding: 10px;
+            margin-bottom: 2px; /* Updated margin-bottom */
             background-color: #007bff;
             color: #fff;
             border: none;
             border-radius: 4px;
-            padding: 10px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
         }
- 
-        .form-button:hover {
-            background-color: #0056b3;
+
+        .register-link {
+            text-align: center;
+            margin-top: 10px;
         }
-        .divcontainer{
-            display: flex;
-            justify-content: center;
+
+        .login-heading {
+            text-align: center;
+            margin-bottom: 20px;
         }
     </style>
     <title>Login Page</title>
 </head>
 <body>
-   <div>
-     <nav>
-         <a href="/login">login</a>
-         <a href="/profile">Profile</a>
-         <a href="#">Contact</a>
-         <a href="/register"></a>
-         
-     </nav>
-   </div>
-    <div class="divcontainer">
-        <div class="login-container">
-            <div class="login-header">
-                <h1>Login</h1>
+    <div class="container">
+        <div class="left-half">
+            <h2 class="login-heading">Login</h2>
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" placeholder="Enter your username">
             </div>
-            <form class="login-form" action="/login" method="POST">
-                <div class="form-group">
-                    <label for="username" class="form-label">Username:</label>
-                    <input type="text" id="username" name="username" class="form-input" placeholder="Enter your username">
-                </div>
-                <div class="form-group">
-                    <label for="password" class="form-label">Password:</label>
-                    <input type="password" id="password" name="password" class="form-input" placeholder="Enter your password">
-                </div>
-                <button type="button" class="form-button" onclick="sendData('EMPLOYEE')">LoginEmployee</button>
-                <br>
-                <button type="button" class="form-button" onclick="sendData('EMPLOYER')">LoginEmployer</button>
-                <br>
-                <button type="button" class="form-button">LoginAdmin</button>
-                <br>
-
-            </form>
-            {{msg}}
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password">
+            </div>
+            <div class="form-group">
+                <button type="submit" onclick="sendData('EMPLOYEE')">Freelancer</button>
+            </div>
+            <div class="form-group">
+                <button type="submit" onclick="sendData('EMPLOYER')">Client</button>
+            </div>
+            <div class="form-group">
+                <button type="submit" onclick="sendData('ADMIN')">Admin</button>
+            </div>
+            <div class="register-link">
+                <p>New user? <a href="/register">Register</a></p>
+            </div>
         </div>
-    </div class="divcontainer">
+        <div class="right-half"></div>
+    </div>
 </body>
 </html>
+
+
+<!-- 
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Job Website Login</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #dbe7ec;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center; /* Center align horizontally */
+            align-items: flex-start; /* Align to the top */
+            width: 100%;
+            height: 100vh;
+        }
+
+        .left-half {
+            flex: 1;
+            padding: 20px;
+            background-color: #fff;
+            height: 100%; /* Updated height */
+        }
+
+        .right-half {
+            flex: 1;
+            background-color: #c0dfff;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center align vertically */
+            margin-top: 50px; /* Added margin-top */
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            text-align: left; /* Updated property */
+        }
+
+        .form-group input {
+            width: 60%; /* Updated width */
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .form-group button {
+            width: 60%; /* Updated width */
+            padding: 10px;
+            margin-bottom: 2px; /* Updated margin-bottom */
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .register-link {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .login-heading {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left-half">
+            <h2 class="login-heading">Login</h2>
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" placeholder="Enter your username">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password">
+            </div>
+            <div class="form-group">
+                <button type="submit">Freelancer</button>
+            </div>
+            <div class="form-group">
+                <button type="submit">Client</button>
+            </div>
+            <div class="form-group">
+                <button type="submit">Admin</button>
+            </div>
+            <div class="register-link">
+                <p>New user? <a href="register.html">Register</a></p>
+            </div>
+        </div>
+        <div class="right-half"></div>
+    </div>
+</body>
+</html> -->

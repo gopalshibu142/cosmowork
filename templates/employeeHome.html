@@ -111,7 +111,7 @@
             <a href="#" class="navbar-link">Jobs</a>
             <a href="/profile" class="navbar-link">Profile</a>
             <form action="/logout" method="post">
-                <button class="navbar-link logout-button" >Logout</button>
+                <button class="navbar-link logout-button">Logout</button>
             </form>
         </div>
     </div>
@@ -121,28 +121,42 @@
         <!-- Repeat the following card structure for each job -->
         {% for job in data %}
         <div class="card">
-            <div class="card-title">{{ job[1] }}</div>
+            <div id={{job[0]}} class="card-title">{{ job[1] }}</div>
             <div class="card-details">
                 <div class="card-description">{{ job[2] }}</div>
                 <!-- <div class="skill-required">{{ job[3] }}</div> -->
                 {% for skill in skills %}
-
-                
                 {% if skill[0] == job[0] %}
                 <span class="skill-required">{{skill[1]}}</span>
                 {% endif %}
                 {% endfor %}
+                <form action="/applyforjob" method="POST">
+                    <button onclick="getJobData('{{ job[0] }}')">Apply</button>
+                </form>
             </div>
         </div>
         {% endfor %}
-
-        
         <!-- Repeat the above card structure for each job -->
     </div>
     {{skills}}
     <script>
-        function logout() {
-            // Add your logout logic here
+        function getJobData(jobId) {
+            // Add your logic here to handle the job data
+            var xhr = new XMLHttpRequest();
+          xhr.open("POST","/applyforjob",true);
+          xhr.setRequestHeader("Content-Type","application/json");
+          xhr.send(JSON.stringify({jobId:jobId}));
+          xhr.onreadystatechange = function(){
+              if(xhr.readyState == 4 && xhr.status == 200){
+                document.open();
+        document.write(xhr.responseText);
+        document.close();
+               
+        // insert the HTML into your page, for example into a div with id 'content'
+        alert('Applied for job');
+              }
+          }
+          
         }
     </script>
 </body>

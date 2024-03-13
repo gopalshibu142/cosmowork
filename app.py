@@ -134,6 +134,9 @@ def login():
                 return render_template('employeeHome.html',msg="Welcome, "+session['username']+"!",data = EmployeeCompatableJobs(session['username']),skills = getSkillsofJobs(EmployeeCompatableJobs(session['username'])) )
             elif session['userType'] == "EMPLOYER":
                 return render_template('employerHome.html',msg="Welcome, "+session['username']+"!",data = getJobsofEmployer(session['username']),skills = getJobskillsofEmployer(session['username']) )
+            elif session['userType'] == "ADMIN":
+                return render_template('adminHome.html',msg="Welcome, "+session['username']+"!")
+
             return f'Welcome, {session["username"]}!'
         else:
             return "Invalid username or password"
@@ -233,6 +236,30 @@ def addjob():
                 return "Job added successfully"
             else:
                 return render_template('addjob.html')
+        else:
+            return "You are not authorized to access this page"
+    else:
+        return redirect('/login')
+    
+@app.route('/applyforjob',methods=['POST','GET'])
+def applyforjob():
+    print("apply for job")
+    if 'username' in session:
+        if session['userType'] == 'EMPLOYEE':
+            data = request.get_json()
+            jid = data['jobId']
+            #check if the user has already applied for the job
+            query = "SELECT * FROM jobapplied WHERE jid = %s and empID = %s"
+            data = (jid,session['username'])
+            mycursor.execute(query,data)
+            result = mycursor.fetchall()
+            if len(result) > 0:
+                return "You have already applied for this job"
+            query = "INSERT INTO jobapplied values(%s,%s)"
+            data = (jid,session['username'])
+            mycursor.execute(query,data)
+            mydb.commit()
+            return "Applied for job successfully"
         else:
             return "You are not authorized to access this page"
     else:
